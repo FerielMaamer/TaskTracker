@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     async addTask(task) {
-      const res = await fetch('https://20.116.78.107:80/api/tasks', {
+      const res = await fetch('https://ferielmaamer.live/api/tasks', {
         method: 'POST',
         mode: 'no-cors',
         headers: {
@@ -41,7 +41,7 @@ export default {
     },
     async deleteTask(id) {
       if (confirm('Are you sure?')) {
-        const res = await fetch(`https://20.116.78.107:80/api/tasks/${id}`, {
+        const res = await fetch(`https://ferielmaamer.live/api/tasks/${id}`, {
           method: 'DELETE',
         })
 
@@ -54,7 +54,7 @@ export default {
       const taskToToggle = await this.fetchTask(id)
       const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder }
 
-      const res = await fetch(`https://20.116.78.107:80/api/tasks/${id}`, {
+      const res = await fetch(`https://ferielmaamer.live/api/tasks/${id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json',
@@ -69,13 +69,13 @@ export default {
       )
     },
     async fetchTasks() {
-      const res = await fetch('https://20.116.78.107:80/api/tasks')
+      const res = await fetch('https://ferielmaamer.live/api/tasks')
       const data = await res.json()
       console.log(data);
       return data
     },
     async fetchTask(id) {
-      const res = await fetch(`https://20.116.78.107:80/api/tasks/${id}`)
+      const res = await fetch(`https://ferielmaamer.live/api/tasks/${id}`)
 
       const data = await res.json()
       console.log(data);
