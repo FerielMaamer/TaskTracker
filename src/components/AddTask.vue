@@ -2,19 +2,19 @@
   <form @submit="onSubmit" class="add-form">
     <div class="form-control">
       <label>ID</label>
-      <input type="number" v-model="id" name="id" placeholder="Add Id" />
+      <input type="number" v-model="Id" name="Id" placeholder="Add Id" />
     </div>
     <div class="form-control">
       <label>Title</label>
-      <input type="text" v-model="title" name="title" placeholder="Add Title" />
+      <input type="text" v-model="Title" name="Title" placeholder="Add Title" />
     </div>
     <div class="form-control">
       <label>Description</label>
-      <input type="text" v-model="desc" name="desc" placeholder="Add Description" />
+      <input type="text" v-model="Description" name="Description" placeholder="Add Description" />
     </div>
     <div class="form-control form-control-check">
       <label>Set Reminder</label>
-      <input type="checkbox" v-model="reminder" name="reminder" />
+      <input type="checkbox" v-model="IsCompleted" name="IsCompleted" />
     </div>
 
     <input type="submit" value="Save Task" class="btn btn-block" />
@@ -26,34 +26,34 @@ export default {
   name: 'AddTask',
   data() {
     return {
-      id: '',
-      title: '',
-      desc:'',
-      reminder: false,
+      Id: '',
+      Title: '',
+      Description:'',
+      IsCompleted: false,
     }
   },
   methods: {
     onSubmit(e) {
       e.preventDefault()
 
-      if (!this.title) {
-        alert('Please add a task')
+      if (!this.Title) {
+        alert('Please add a title')
         return
       }
 
       const newTask = {
         // id: Math.floor(Math.random() * 100000),
-        id: this.id,
-        title: this.title,
-        desc: this.desc,
-        reminder: this.reminder,
+        Id: this.Id,
+        Title: this.Title,
+        Description: this.Description,
+        IsCompleted: this.IsCompleted,
       }
 
       this.$emit('add-task', newTask)
-      this.id= Math.floor(Math.random() * 100000);
-      this.title = ''
-      this.desc = ''
-      this.reminder = false
+      this.Id= Math.floor(Math.random() * 100000);
+      this.Title = ''
+      this.Description = ''
+      this.IsCompleted = false
     },
   },
 }

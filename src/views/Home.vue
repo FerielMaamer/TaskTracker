@@ -28,7 +28,6 @@ export default {
     async addTask(task) {
       const res = await fetch('https://ferielmaamer.live/api/tasks', {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
           'Content-type': 'application/json',
         },
@@ -44,15 +43,15 @@ export default {
         const res = await fetch(`https://ferielmaamer.live/api/tasks/${id}`, {
           method: 'DELETE',
         })
-
-        res.status === 200
+        console.log(id)
+        res.status === 204
           ? (this.tasks = this.tasks.filter((task) => task.id !== id))
           : alert('Error deleting task')
       }
     },
     async toggleReminder(id) {
-      const taskToToggle = await this.fetchTask(id)
-      const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder }
+      const taskToToggle = await this.fetchTask(id);
+      const updTask = { ...taskToToggle, isCompleted: !taskToToggle.isCompleted };
 
       const res = await fetch(`https://ferielmaamer.live/api/tasks/${id}`, {
         method: 'PUT',
@@ -60,13 +59,15 @@ export default {
           'Content-type': 'application/json',
         },
         body: JSON.stringify(updTask),
-      })
+      });
 
-      const data = await res.json()
-
-      this.tasks = this.tasks.map((task) =>
-        task.id === id ? { ...task, reminder: data.reminder } : task
-      )
+      if (res.status === 204) {
+        this.tasks = this.tasks.map((task) =>
+          task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
+        );
+      } else {
+        alert('Error changing reminder');
+      }
     },
     async fetchTasks() {
       const res = await fetch('https://ferielmaamer.live/api/tasks')
