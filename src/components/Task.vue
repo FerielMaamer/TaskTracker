@@ -4,7 +4,6 @@
     :class="[task.isCompleted ? 'reminder' : '', 'task']"
   >
     <h3>
-      {{ task.id }}
       {{ task.title}}
       <i @click="$emit('delete-task', task.id)" class="fas fa-times"></i>
     </h3>
